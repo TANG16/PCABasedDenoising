@@ -27,8 +27,6 @@ for i=c+1:X-c
         patchVector = reshape(patchMatrix,[],1);
         k = k+1;
         P(:,k) = patchVector;
-        M(:,i,j) = patchVector;
+        M(:,i-c,j-c) = patchVector;
     end
 end
-disp(N);
-disp(k);

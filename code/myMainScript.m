@@ -12,10 +12,10 @@ im2 = myPCADenoising1(im1,sigma);
 
 
 figure(1);
-imagesc(im1);
+imshow(im1);
 
 figure(2);
-imagesc(im2);
+imshow(im2);
 %% Part b
 %im3 = myPCADenoising2(im1,sigma);
 toc;
