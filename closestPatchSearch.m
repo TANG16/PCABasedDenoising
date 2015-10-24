@@ -1,4 +1,4 @@
-function [] = closestPatchSearch(M,K,N,patchDimension)
+function [q] = closestPatchSearch(M,K,N,patchDimension)
 % Performs the nearest neighbour search in a window for the patch based matrix M
 % See function createPatchMatrices for the structure of M and P
 %   param M: patch based matrix

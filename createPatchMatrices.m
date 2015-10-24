@@ -1,4 +1,4 @@
-function [P,M] = createPatchMatrices(inputImage, patchDimension)
+function [P,M,N] = createPatchMatrices(inputImage, patchDimension)
 % Create Patch based matrices P and M
 % P: Contains each patch as a column vector
 % M: Each element of the 2D matrix is a patch
@@ -6,11 +6,11 @@ function [P,M] = createPatchMatrices(inputImage, patchDimension)
 X = size(inputImage,1);
 Y = size(inputImage,2);
 
-patchVectorSize = pathDimension^2;
+patchVectorSize = patchDimension^2;
 c = floor(patchDimension/2);
 % Calculating the number of patches; Image locations in the bottom right
 % corner do not have a patch
-N = X*Y - patchDimension*PatchDimension;
+N = X*Y - patchDimension*patchDimension;
 
 % each column of P is a patch
 P = zeros(patchVectorSize,N);
