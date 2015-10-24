@@ -17,5 +17,7 @@ imshow(im1);
 figure(2);
 imshow(im2);
 %% Part b
-%im3 = myPCADenoising2(im1,sigma);
+im3 = myPCADenoising2(im1,sigma);
+figure(3);
+imshow(im3);
 toc;
