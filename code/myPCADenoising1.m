@@ -1,14 +1,14 @@
-function[out] = myPCADenoising1(inp,sigma)
+function [out] = myPCADenoising1(inp,sigma)
 
 patchSize = 7;
 [P,~,N] = createPatchMatrices(inp,patchSize);
 %% Construct the eigenspace and compute eigencoefficients
 
-[V,~] = eig(P*P');  % construct the eigenspace for the patches
+V = eig(P*P');  % construct the eigenspace for the patches
 alpha = V'*P;   % compute the eigencoefficients
 
 %% Compute estimate of average squared 
-alpha_avg_sq = matrix(N);
+alpha_avg_sq = zeros([N,1]);
 for i=1:N
     avg = sumsqr(alpha(:,i))/N - sigma^2;
     if(avg>0)
@@ -19,7 +19,7 @@ for i=1:N
 end
 
 %% Wiener filter-like update
-alpha_denoised = matrix(size(alpha));
+alpha_denoised = zeros(size(alpha));
 for j=1:N
     if(alpha_avg_sq(j)==0)
         alpha_denoised(:,j) = 0;
@@ -30,4 +30,4 @@ end
 
 P_denoised = V*alpha_denoised;
 
-out = reassemble(P_denoised);
+out = imageFromPatches(P_denoised,size(inp,1),size(inp,2));

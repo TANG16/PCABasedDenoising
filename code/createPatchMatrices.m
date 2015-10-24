@@ -10,7 +10,7 @@ patchVectorSize = patchDimension^2;
 c = floor(patchDimension/2);
 % Calculating the number of patches; Image locations in the bottom right
 % corner do not have a patch
-N = X*Y - patchDimension*patchDimension;
+N = (X-2*c)*(Y-2*c);
 
 % each column of P is a patch
 P = zeros(patchVectorSize,N);
@@ -19,15 +19,16 @@ P = zeros(patchVectorSize,N);
 % have to be neglected
 M = zeros(patchVectorSize,X-2*c,Y-2*c);
 
-k=1;
-for i=1:X-2*c
-    for j=1:Y-2*c
+k=0;
+for i=c+1:X-c
+    for j=c+1:Y-c
         % getting the patch whose center is pixel(i,j) of the image
         patchMatrix = inputImage(i-c:i+c,j-c:j+c);
         patchVector = reshape(patchMatrix,[],1);
-        
-        P(:,k) = patchVector;
         k = k+1;
+        P(:,k) = patchVector;
         M(:,i,j) = patchVector;
     end
 end
+disp(N);
+disp(k);
