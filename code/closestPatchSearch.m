@@ -18,7 +18,6 @@ P_denoised = zeros(patchVectorSize,N1);
 % Window defined using top left corner of the patch whereas M is defined using the center of the patch
 
 % TODO: vectoring the knnsearchPart gives high speedup; see if possible
-
 d=floor(N/2);
 k=0;
 for i=1:X
@@ -53,26 +52,22 @@ for i=1:X
         
         [V,~]=eig(q*q');
         alpha = V'*q;   % compute the eigencoefficients
-
         %% Compute estimate of average squared
         alpha_avg_sq = zeros(patchVectorSize);
         for x=1:patchVectorSize
-            alpha_avg_sq(x) = sumsqr(alpha(x,:))/N - sigma^2;
+            alpha_avg_sq(x) = sumsqr(alpha(x,:))/K - sigma^2;
         end
         alpha_avg_sq=max(alpha_avg_sq,0);
-
         %% Wiener filter-like update
-        alpha_denoised = zeros(size(alpha));
+        alpha_denoised=zeros(size(alpha));
         for x=1:patchVectorSize
             if(alpha_avg_sq(x)==0)
                 alpha_denoised(x,:) = 0;
             else
-                alpha_denoised(x,:) = alpha(x,:)/(1+sigma^2/alpha_avg_sq(j));
+                alpha_denoised(x,:) = alpha(x,:)/(1+sigma^2/alpha_avg_sq(x));
             end
         end
         k=k+1;
-        P_denoised(:,k) = V*alpha_denoised;
-        
-        
+        P_denoised(:,k) = V*alpha_denoised(:,1);        
     end
 end

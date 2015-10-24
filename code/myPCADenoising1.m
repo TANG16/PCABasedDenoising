@@ -6,7 +6,6 @@ patchSize = 7;
 
 [V,~] = eig(P*P');  % construct the eigenspace for the patches
 alpha = V'*P;   % compute the eigencoefficients
-
 %% Compute estimate of average squared
 patchVectorSize = patchSize^2;
 alpha_avg_sq = zeros(patchVectorSize);
